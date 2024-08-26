@@ -19,24 +19,32 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1",
+    "@tailwindcss/forms": "^0.5",
+    "@vercel/postgres": "^0.8",
+    "autoprefixer": "^10",
+    "bcrypt": "^5.1",
     "bootstrap-icons": "^1.11",
     "bootstrap": "^5.3",
+    "clsx": "^2",
+    "next-auth": "^4.24",
     "next": "^14",
+    "postcss": "8.4",
     "react-array-to-tree": "^2",
     "react-dom": "^18",
-    "react": "^18"
+    "react": "^18",
+    "tailwindcss": "^3.4",
+    "typescript": "^5",
+    "use-debounce": "^10.0",
+    "zod": "^3.23"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1",
     "@types/node": "^20",
     "@types/react-dom": "^18",
     "@types/react": "^18",
-    "autoprefixer": "^10",
     "eslint-config-next": "^14.2",
     "eslint": "^8",
-    "postcss": "^8",
-    "sass": "^1.77",
-    "tailwindcss": "^3.4",
-    "typescript": "^5"
+    "sass": "^1.77"
   }
 }
