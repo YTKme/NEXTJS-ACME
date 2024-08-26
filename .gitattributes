@@ -1,0 +1,8 @@
+##########
+# Common #
+##########
+
+# Auto Detect
+# Handle line ending automatically for file(s) detected as text, and
+# leave all file(s) detected as binary untouched.
+*          text=auto
