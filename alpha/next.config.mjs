@@ -4,6 +4,9 @@
 
 /** @type {import('next').NextConfig} */
 
+console.debug('nodejs Environment:', process.env.NODE_ENV);
+console.debug('Environment:', process.env.ENVIRONMENT);
+
 const nextConfig = {
   basePath: process.env.BASE_PATH,
   reactStrictMode: true,
