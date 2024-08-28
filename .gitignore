@@ -2,6 +2,10 @@
 # Base #
 ########
 
+# Environment
+.env.development
+.env.production
+
 # npm
 package-lock.json
 
