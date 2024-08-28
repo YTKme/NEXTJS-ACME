@@ -12,6 +12,9 @@ import reactArrayToTree from 'react-array-to-tree';
 import '@/style/global.scss';
 import './root.css';
 
+// Font
+import { inter } from '@/app/interface/font';
+
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -29,7 +32,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body>
+      <body className={`${inter.className} antialiased`}>
         <ProviderTree>
           {children}
         </ProviderTree>
