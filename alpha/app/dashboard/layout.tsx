@@ -9,7 +9,7 @@ import { Viewport } from 'next';
 // Component
 import SideNavigation from './sidenavigation';
 
-// Font
+export const experimental_ppr = true;
 
 export const viewport: Viewport = {
   width: 'device-width',

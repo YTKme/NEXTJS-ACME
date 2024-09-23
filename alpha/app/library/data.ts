@@ -18,7 +18,15 @@ const pool = new Pool({
 export async function fetchRevenue() {
   const client = await pool.connect();
   try {
+    // We artificially delay a response for demo purposes.
+    // Don't do this in production :)
+    console.log('Fetching revenue data...');
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
     const result = await client.query(`SELECT * FROM revenue`);
+
+    console.log('Data fetch completed after 3 seconds.');
+
     return result.rows;
   } catch (error) {
     console.error('Database Error:', error);
@@ -31,6 +39,7 @@ export async function fetchRevenue() {
 export async function fetchLatestInvoices() {
   const client = await pool.connect();
   try {
+    // Fetch the last 5 invoices, sorted by date
     const result = await client.query(`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
       FROM invoices
