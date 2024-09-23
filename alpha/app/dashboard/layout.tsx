@@ -7,7 +7,7 @@ import { Viewport } from 'next';
 // Context
 
 // Component
-import SideNavigation from './sidenavigation';
+import SideNavigation from '@/app/dashboard/sidenavigation';
 
 export const experimental_ppr = true;
 
