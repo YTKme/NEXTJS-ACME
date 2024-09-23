@@ -48,6 +48,9 @@ const nextConfig = {
 
     return config
   },
+  experimental: {
+    ppr: 'incremental',
+  },
 };
 
 export default nextConfig;
