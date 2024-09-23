@@ -2,7 +2,7 @@
  * Loading
  */
 
-import DashboardSkeleton from "./skeleton";
+import DashboardSkeleton from "@/app/dashboard/skeleton";
 
 
 export default function Loading() {
