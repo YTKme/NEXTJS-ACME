@@ -1,3 +1,7 @@
+/**
+ * About Page
+ */
+
 export default function Page() {
   return (
     <>

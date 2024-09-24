@@ -1,3 +1,6 @@
+/**
+ * Contact Page
+ */
 
 export default function Page() {
   return (
