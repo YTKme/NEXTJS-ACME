@@ -2,7 +2,6 @@
  * Dashboard Page
  */
 
-import { RevenueChartSkeleton } from '@/app/dashboard/skeleton';
 import { Suspense } from 'react';
 
 import type { Metadata } from 'next';
@@ -16,6 +15,7 @@ import {
   fetchLatestInvoices,
 } from '@/app/library/data';
 
+import Loading from '@/app/dashboard/(overview)/loading';
 import { lusitana } from '@/app/interface/font';
 
 export const metadata: Metadata = {
@@ -48,7 +48,7 @@ export default async function DashboardPage() {
         />
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-        <Suspense fallback={<RevenueChartSkeleton />}>
+        <Suspense fallback={<Loading />}>
           <RevenueChart />
         </Suspense>
         <LatestInvoices latestInvoices={latestInvoices} />
