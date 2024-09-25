@@ -2,7 +2,7 @@
  * Root Layout
  */
 
-import { Viewport } from 'next';
+import { Metadata, Viewport } from 'next';
 
 import { Inter } from "next/font/google";
 
@@ -11,6 +11,11 @@ import '@/style/global.scss';
 import './root.css';
 
 const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: 'NEXT.JS Blog',
+  description: 'NEXT.JS Blog',
+}
 
 export const viewport: Viewport = {
   width: 'device-width',
