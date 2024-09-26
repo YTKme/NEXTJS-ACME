@@ -2,8 +2,8 @@
  * Root Page
  */
 
-
 import type { Metadata } from 'next';
+import Image from 'next/image';
 
 import styles from '@/app/interface/style/home.module.css';
 
@@ -25,6 +25,22 @@ export default function Page() {
             <a href="/blog/post" className={`outline outline-1 outline-offset-2 border-purple-700 text-purple-700 hover:text-white py-2 px-4 rounded hover:bg-purple-800 md:w-auto ${styles.fit_content}`}>
               Go to Blog
             </a>
+          </div>
+          <div className='relative flex justify-center items-center'>
+            <Image
+              src='/res/img/image-desktop.jpeg'
+              width={1000}
+              height={760}
+              className='hidden rounded-lg md:block z-10'
+              alt='Screenshots of the dashboard project showing desktop version.'
+            />
+            <Image
+              src='/res/img/image-mobile.jpeg'
+              width={560}
+              height={620}
+              className='block rounded-md md:hidden'
+              alt='Screenshots of the dashboard project showing mobile version.'
+            />
           </div>
         </div>
       </div>
