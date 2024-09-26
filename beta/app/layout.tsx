@@ -4,13 +4,19 @@
 
 import { Metadata, Viewport } from 'next';
 
-import { Inter } from "next/font/google";
+import { Inter, Roboto } from "next/font/google";
 
 // CSS
 import '@/style/global.scss';
 import './root.css';
 
 const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
+  subsets: ["latin"],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'NEXT.JS Blog',
@@ -30,7 +36,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className={roboto.className}>
         {children}
       </body>
     </html>
