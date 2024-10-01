@@ -2,7 +2,7 @@
  * Data
  */
 
-import { createClient } from '@vercel/postgres';
+import { createClient, sql } from '@vercel/postgres';
 
 export async function connectDatabase() {
   const client = createClient();
@@ -15,5 +15,15 @@ export async function connectDatabase() {
     }
   } catch (error) {
     console.error('Error Connecting To Database:', error);
+  }
+}
+
+export async function getPost() {
+  try {
+    const data = await sql`SELECT * FROM post LIMIT 2;`;
+    console.debug('Data:', data.rows);
+    return data.rows;
+  } catch (error) {
+    console.error('Error getting post.', error);
   }
 }
