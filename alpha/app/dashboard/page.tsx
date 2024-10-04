@@ -2,7 +2,6 @@
  * Dashboard Page
  */
 
-import { Suspense } from 'react';
 
 import type { Metadata } from 'next';
 
@@ -13,9 +12,9 @@ import RevenueChart from '@/app/dashboard/revenuechart';
 import {
   fetchCardData,
   fetchLatestInvoices,
+  fetchRevenue,
 } from '@/app/library/data';
 
-import Loading from '@/app/dashboard/(overview)/loading';
 import { lusitana } from '@/app/interface/font';
 
 export const metadata: Metadata = {
@@ -24,6 +23,7 @@ export const metadata: Metadata = {
 }
 
 export default async function DashboardPage() {
+  const revenue = await fetchRevenue();
   const latestInvoices = await fetchLatestInvoices(); // wait for fetchRevenue() to finish
   const {
     numberOfInvoices,
@@ -41,16 +41,10 @@ export default async function DashboardPage() {
         <Card title="Collected" value={totalPaidInvoices} type="collected" />
         <Card title="Pending" value={totalPendingInvoices} type="pending" />
         <Card title="Total Invoices" value={numberOfInvoices} type="invoices" />
-        <Card
-          title="Total Customers"
-          value={numberOfCustomers}
-          type="customers"
-        />
+        <Card title="Total Customers" value={numberOfCustomers} type="customers" />
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-        <Suspense fallback={<Loading />}>
-          <RevenueChart />
-        </Suspense>
+        <RevenueChart revenue={revenue}  />
         <LatestInvoices latestInvoices={latestInvoices} />
       </div>
     </main>
