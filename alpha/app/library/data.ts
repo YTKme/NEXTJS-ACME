@@ -39,6 +39,8 @@ export async function fetchRevenue() {
 export async function fetchLatestInvoices() {
   const client = await pool.connect();
   try {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
     // Fetch the last 5 invoices, sorted by date
     const result = await client.query(`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
