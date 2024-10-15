@@ -21,11 +21,9 @@ export async function fetchRevenue() {
     // We artificially delay a response for demo purposes.
     // Don't do this in production :)
     console.log('Fetching revenue data...');
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     const result = await client.query(`SELECT * FROM revenue`);
-
-    console.log('Data fetch completed after 3 seconds.');
+    console.log('Data fetch completed after 5 seconds.');
 
     return result.rows;
   } catch (error) {
@@ -39,7 +37,9 @@ export async function fetchRevenue() {
 export async function fetchLatestInvoices() {
   const client = await pool.connect();
   try {
+    console.log('Fetching latest invoices data...');
     await new Promise((resolve) => setTimeout(resolve, 3000));
+    console.log('Data fetch completed after 3 seconds.');
 
     // Fetch the last 5 invoices, sorted by date
     const result = await client.query(`
@@ -61,6 +61,10 @@ export async function fetchLatestInvoices() {
 export async function fetchCardData() {
   const client = await pool.connect();
   try {
+    console.log('Fetching card data...');
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    console.log('Data fetch completed after 1.5 seconds.');
+
     const invoiceCountPromise = client.query(`SELECT COUNT(*) FROM invoices`);
     const customerCountPromise = client.query(`SELECT COUNT(*) FROM customers`);
     const invoiceStatusPromise = client.query(`
@@ -100,6 +104,10 @@ export async function fetchFilteredInvoices(
   query: string,
   currentPage: number,
 ) {
+  // console.log('Fetching filtered invoices data...');
+  // await new Promise((resolve) => setTimeout(resolve, 2500));
+  // console.log('Data fetch completed after 2.5 seconds.');
+
   const client = await pool.connect();
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -125,6 +133,8 @@ export async function fetchFilteredInvoices(
       LIMIT $6 OFFSET $7
       `, [`%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`, `%${query}%`, ITEMS_PER_PAGE, offset]
     );
+
+    return invoices.rows;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch invoices.');
