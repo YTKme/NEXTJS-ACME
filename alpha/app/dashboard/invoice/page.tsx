@@ -22,15 +22,16 @@ export const metadata: Metadata = {
 }
 
 export default async function InvoicePage({
-  searchParameter,
+  // Must be `searchParams`
+  searchParams,
 }: {
-  searchParameter?: {
+  searchParams?: {
     query?: string;
     page?: string;
   };
 }) {
-  const query = searchParameter?.query || '';
-  const currentPage = Number(searchParameter?.page) || 1;
+  const query = searchParams?.query || '';
+  const currentPage = Number(searchParams?.page) || 1;
 
   const totalPages = await fetchInvoicesPages(query);
 
