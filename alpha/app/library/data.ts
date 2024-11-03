@@ -8,12 +8,11 @@ import { formatCurrency } from './utility';
 
 const { Pool } = pg;
 
-const pool = new Pool({
-  host: process.env.POSTGRES_HOST,
-  user: process.env.POSTGRES_USERNAME,
-  password: process.env.POSTGRES_PASSWORD,
-  database: process.env.POSTGRES_DATABASE,
-});
+const configuration = {
+  connectionString: process.env.POSTGRES_URL,
+};
+
+const pool = new Pool(configuration);
 
 export async function fetchRevenue() {
   const client = await pool.connect();
