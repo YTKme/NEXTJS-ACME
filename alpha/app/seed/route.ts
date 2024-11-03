@@ -10,12 +10,11 @@ import { customers, invoices, revenue, users } from '../library/placeholder-data
 
 const { Pool, Client } = pg;
 
-const pool = new Pool({
-  host: process.env.POSTGRES_HOST,
-  user: process.env.POSTGRES_USERNAME,
-  password: process.env.POSTGRES_PASSWORD,
-  database: process.env.POSTGRES_DATABASE,
-});
+const configuration = {
+  connectionString: process.env.POSTGRES_URL,
+};
+
+const pool = new Pool(configuration);
 
 async function seedUser() {
   const client = await pool.connect();
