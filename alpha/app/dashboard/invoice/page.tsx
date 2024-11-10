@@ -21,15 +21,13 @@ export const metadata: Metadata = {
   description: 'NEXT.JS ACME | Invoice',
 }
 
-export default async function InvoicePage({
-  // Must be `searchParams`
-  searchParams,
-}: {
-  searchParams?: {
+export default async function InvoicePage(props: {
+  searchParams?: Promise<{
     query?: string;
     page?: string;
-  };
+  }>;
 }) {
+  const searchParams = await props.searchParams;
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
 
@@ -44,7 +42,7 @@ export default async function InvoicePage({
         <Search placeholder="Search Invoice..." />
         <CreateInvoice />
       </div>
-       <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
+      <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
         <Table query={query} currentPage={currentPage} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
