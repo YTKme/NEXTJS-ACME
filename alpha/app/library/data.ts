@@ -19,10 +19,10 @@ export async function fetchRevenue() {
   try {
     // We artificially delay a response for demo purposes.
     // Don't do this in production :)
-    console.log('Fetching revenue data...');
+    console.debug('Fetching revenue data...');
     await new Promise((resolve) => setTimeout(resolve, 5000));
     const result = await client.query(`SELECT * FROM revenue`);
-    console.log('Data fetch completed after 5 seconds.');
+    console.debug('Data fetch completed after 5 seconds.');
 
     return result.rows;
   } catch (error) {
@@ -36,9 +36,9 @@ export async function fetchRevenue() {
 export async function fetchLatestInvoices() {
   const client = await pool.connect();
   try {
-    console.log('Fetching latest invoices data...');
+    console.debug('Fetching latest invoices data...');
     await new Promise((resolve) => setTimeout(resolve, 3000));
-    console.log('Data fetch completed after 3 seconds.');
+    console.debug('Data fetch completed after 3 seconds.');
 
     // Fetch the last 5 invoices, sorted by date
     const result = await client.query(`
@@ -60,9 +60,9 @@ export async function fetchLatestInvoices() {
 export async function fetchCardData() {
   const client = await pool.connect();
   try {
-    console.log('Fetching card data...');
+    console.debug('Fetching card data...');
     await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log('Data fetch completed after 1.5 seconds.');
+    console.debug('Data fetch completed after 1.5 seconds.');
 
     const invoiceCountPromise = client.query(`SELECT COUNT(*) FROM invoices`);
     const customerCountPromise = client.query(`SELECT COUNT(*) FROM customers`);
