@@ -11,7 +11,7 @@ import pg from 'pg';
 import { z } from 'zod';
 
 const { Pool } = pg;
-const configuration = {connectionString: process.env.POSTGRES_URL};
+const configuration = { connectionString: process.env.POSTGRES_URL };
 const pool = new Pool(configuration);
 
 const FormSchema = z.object({
@@ -92,4 +92,25 @@ export async function updateInvoice(id: string, formData: FormData) {
   revalidatePath('/dashboard/invoice');
   // Redirect
   redirect('/dashboard/invoice');
+};
+
+export async function deleteInvoice(id: string) {
+  const client = await pool.connect();
+  // Delete Data
+  try {
+    console.debug('Deleting invoice...');
+    await client.query(`
+      DELETE FROM invoices
+      WHERE id = '${id}'
+    `);
+    console.debug('Deleting invoice completed.');
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to delete invoice.');
+  } finally {
+    client.release();
+  }
+
+  // Revalidate Path
+  revalidatePath('/dashboard/invoice');
 };
