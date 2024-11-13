@@ -23,6 +23,7 @@ const FormSchema = z.object({
 });
 
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
+const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
 export async function createInvoice(formData: FormData) {
   const { customerId, amount, status } = CreateInvoice.parse({
@@ -48,6 +49,7 @@ export async function createInvoice(formData: FormData) {
       INSERT INTO invoices (customer_id, amount, status, date)
       VALUES ('${customerId}', ${amountInCent}, '${status}', '${date}')
     `);
+    console.debug('Creating invoice completed.');
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to create invoice.');
@@ -59,4 +61,35 @@ export async function createInvoice(formData: FormData) {
   revalidatePath('/dashboard/invoice');
   // Redirect
   redirect('/dashboard/invoice');
-}
+};
+
+export async function updateInvoice(id: string, formData: FormData) {
+  const { customerId, amount, status } = UpdateInvoice.parse({
+    customerId: formData.get('customerId'),
+    amount: formData.get('amount'),
+    status: formData.get('status'),
+  });
+  const amountInCent = amount * 100;
+
+  const client = await pool.connect();
+  // Update Data
+  try {
+    console.debug('Updating invoice...');
+    await client.query(`
+      UPDATE invoices
+      SET customer_id = '${customerId}', amount = ${amountInCent}, status = '${status}'
+      WHERE id = '${id}'
+    `);
+    console.debug('Updating invoice completed.');
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to update invoice.');
+  } finally {
+    client.release();
+  }
+
+  // Revalidate Path
+  revalidatePath('/dashboard/invoice');
+  // Redirect
+  redirect('/dashboard/invoice');
+};
