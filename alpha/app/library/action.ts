@@ -10,27 +10,53 @@ import { redirect } from 'next/navigation';
 import pg from 'pg';
 import { z } from 'zod';
 
+export type State = {
+  message: string | null;
+  error?: {
+    customerId?: string[];
+    amount?: string[];
+    status?: string[];
+  }
+}
+
 const { Pool } = pg;
 const configuration = { connectionString: process.env.POSTGRES_URL };
 const pool = new Pool(configuration);
 
 const FormSchema = z.object({
   id: z.string(),
-  customerId: z.string(),
-  amount: z.coerce.number(),
-  status: z.enum(['pending', 'paid']),
+  customerId: z.string({
+    invalid_type_error: 'Please select a customer.',
+  }),
+  amount: z.coerce.number()
+    .gt(0, { message: 'Please enter an amount greater than $0.' }),
+  status: z.enum(['pending', 'paid'], {
+    invalid_type_error: 'Please select an invoice status.',
+  }),
   date: z.string(),
 });
 
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
-export async function createInvoice(formData: FormData) {
-  const { customerId, amount, status } = CreateInvoice.parse({
+export async function createInvoice(previousState: State, formData: FormData) {
+  // Validate form field using Zod
+  const validateField = CreateInvoice.safeParse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
     status: formData.get('status'),
   });
+
+  // If form validation fail, return error early. Otherwise, continue.
+  if (!validateField.success) {
+    return {
+      message: 'Missing Field(s). Failed to Create Invoice.',
+      error: validateField.error.flatten().fieldErrors,
+    }
+  }
+
+  // Prepare data for insertion into the database
+  const { customerId, amount, status } = validateField.data;
   const amountInCent = amount * 100;
   const date = new Date().toISOString().split('T')[0];
 
