@@ -39,7 +39,7 @@ const FormSchema = z.object({
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
-export async function createInvoice(previousState: State, formData: FormData) {
+export async function createInvoice(prevState: State, formData: FormData) {
   // Validate form field using Zod
   const validateField = CreateInvoice.safeParse({
     customerId: formData.get('customerId'),
@@ -89,12 +89,28 @@ export async function createInvoice(previousState: State, formData: FormData) {
   redirect('/dashboard/invoice');
 };
 
-export async function updateInvoice(id: string, formData: FormData) {
-  const { customerId, amount, status } = UpdateInvoice.parse({
+export async function updateInvoice(
+  id: string,
+  previousState: State, // Order matter, come after `id`
+  formData: FormData
+) {
+  // Validate form field using Zod
+  const validateField = UpdateInvoice.safeParse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
     status: formData.get('status'),
   });
+
+  // If form validation fail, return error early. Otherwise, continue.
+  if (!validateField.success) {
+    return {
+      message: 'Missing Field(s). Failed to Update Invoice.',
+      error: validateField.error.flatten().fieldErrors,
+    }
+  }
+
+  // Prepare data for insertion into the database
+  const { customerId, amount, status } = validateField.data;
   const amountInCent = amount * 100;
 
   const client = await pool.connect();
