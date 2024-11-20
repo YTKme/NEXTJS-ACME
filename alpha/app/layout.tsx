@@ -2,7 +2,7 @@
  * Root Layout
  */
 
-import { Viewport } from 'next';
+import { Metadata, Viewport } from 'next';
 
 import reactArrayToTree from 'react-array-to-tree';
 
@@ -14,6 +14,15 @@ import './root.css';
 
 // Font
 import { inter } from '@/app/interface/font';
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s | ACME Dashboard',
+    default: 'ACME Dashboard',
+  },
+  description: 'The official NEXT.JS Course Dashboard, built with App Router.',
+  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+}
 
 export const viewport: Viewport = {
   width: 'device-width',

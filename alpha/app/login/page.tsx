@@ -2,8 +2,15 @@
  * Login Page
  */
 
+import type { Metadata } from 'next';
+
 import AcmeLogo from '@/app/interface/acme-logo';
 import LoginForm from '@/app/interface/login-form';
+
+export const metadata: Metadata = {
+  title: 'Login',
+  description: 'NEXT.JS ACME | Login',
+}
 
 export default function LoginPage() {
   return (
