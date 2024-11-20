@@ -7,7 +7,7 @@ import type { Metadata } from 'next';
 
 
 export const metadata: Metadata = {
-  title: 'NEXT.JS ACME | Customer',
+  title: 'Customer',
   description: 'NEXT.JS ACME | Customer',
 }
 

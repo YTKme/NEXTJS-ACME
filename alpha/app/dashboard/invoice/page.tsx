@@ -17,7 +17,7 @@ import { lusitana } from '@/app/interface/font';
 import { fetchInvoicesPages } from '@/app/library/data';
 
 export const metadata: Metadata = {
-  title: 'NEXT.JS ACME | Invoice',
+  title: 'Invoice',
   description: 'NEXT.JS ACME | Invoice',
 }
 

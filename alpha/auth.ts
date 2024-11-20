@@ -2,11 +2,11 @@
  * Authentication
  */
 
-import NextAuth from 'next-auth';
-import Credentials from 'next-auth/providers/credentials'
-import { z } from 'zod';
-import pg from 'pg';
 import bcrypt from 'bcrypt';
+import NextAuth from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
+import pg from 'pg';
+import { z } from 'zod';
 
 import { User } from '@/app/library/definition';
 import { authConfig } from "./auth.config";
@@ -33,7 +33,7 @@ async function getUser(email: string): Promise<User | undefined> {
   }
 }
 
-export const { auth, signIn, signOut } NextAuth({
+export const { auth, signIn, signOut }: { auth: any, signIn: any, signOut: any } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
