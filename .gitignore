@@ -15,6 +15,9 @@ bun.lockb
 # Vercel
 .vercel
 
+# NEXT.JS
+next-env.d.ts
+
 # JETBRAINS
 .idea
 
